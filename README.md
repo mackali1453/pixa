@@ -1,6 +1,6 @@
-# node.js_leaflet_app
+# socket io rest api
 
-Node.js_leaflet_app is a node.js app which includes leaflet map and calendar in it. 
+socket io rest api is a node.js app which clients can chat each other. 
 
 ## Installation
 
@@ -12,16 +12,29 @@ Go to app folder and use npm for installing requirements.
 
 ```
 
-## Usage with docker
 
-```bash
-#open a cmd and set current directory to app folder
-docker build -t webapp .
-docker run -d -p 3000:3000 webapp 
-
-```
 ## Usage with node.js
-Go to app folder and type "nodemon"
+Go to app folder and type set PORT=whatever port you want and then type "npm run start"
 
 ## After running app
-Go to your browser and type "http://localhost:3000/login". This routes to login page. There are two button which route to map or calendar page. Just click whatever you want.
+Open and api client(postman,insomnia) send post request to "http://localhost:PORT/Register". Request body is like this;
+{
+	"first_name":"xx",
+  "last_name":"xx",
+	"email":"xx",
+	"password":"xx"
+}
+.
+After registering app run socket io server it does not require authorization. Route is "localhost:PORT/Server" and there is no body.
+After running server login app as a client. Route is "http://localhost:PORT/login". Request body is same as Registering app.
+Login request returns a token. 
+And then open cmd and run app as a client in DIFFERENT PORTS by type "set PORT=xx". You can run as much clients as you want. And then type npm run start.
+Last process is sending message. Send request to "localhost:PORT/Client". Request body is;
+{
+	    
+		"username":"xx",
+    "room1":"xx",
+    "message":"xx",
+    "message_to":"xx"
+}
+Before that use token in request body header. 
